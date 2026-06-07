@@ -85,7 +85,7 @@ function LoginForm({ setFlashMessage, setCategory }) {
         )}
         <button className="btn-primary login-btn">Log in</button>
         <p className="secondary-text">
-          Don't have an account?
+          Don't have an account?{" "}
           <Link to="/auth/signup" className="register-link">
             Register Now
           </Link>

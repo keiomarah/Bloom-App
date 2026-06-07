@@ -135,7 +135,7 @@ function SignUpForm({ setFlashMessage, setCategory }) {
         <label>Password </label>
         <input
           className={
-            errors.password1.length > 0 || errors.password2
+            errors?.password1?.length > 0 || errors.password2
               ? "invalid-input"
               : ""
           }
@@ -193,7 +193,7 @@ function SignUpForm({ setFlashMessage, setCategory }) {
         {errors.password2 && (
           <p className="invalid-input-text">{errors.password2}</p>
         )}
-        <button className="btn-primary login-btn">Log in</button>
+        <button className="btn-primary login-btn">Create Account</button>
       </form>
     </>
   );
