@@ -30,21 +30,12 @@ export function AuthLayout({
                 judgement.
               </p>
             </div>
-            <div className="circle-8 circle">
-              <div className="circle-7 circle">
-                <div className="circle-1 circle">
-                  <div className="circle-2 circle">
-                    <div className="circle-3 circle">
-                      <div className="circle-4 circle">
-                        <div className="circle-5 circle">
-                          <div className="circle-6 circle"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div className="circle-1 circle"></div>
+            <div className="circle-2 circle"></div>
+            <div className="circle-3 circle"></div>
+            <div className="circle-4 circle"></div>
+            <div className="circle-5 circle"></div>
+            <div className="circle-6 circle"></div>
           </div>
         </div>
       </div>

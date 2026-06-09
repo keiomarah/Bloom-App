@@ -1,8 +1,8 @@
 from flask import Blueprint
 from flask import request
 from flask import jsonify
-
-from flask_jwt_extended import create_access_token
+from app.models.user import User
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from app.services.auth_services import get_user_by_email_or_username, password_match, check_strong_password, register_user, user_login
 auth = Blueprint("auth", __name__)
 
@@ -50,3 +50,15 @@ def login():
 @auth.route("/logout", methods=["POST"])
 def logout():
     pass
+
+@auth.route("/me", methods=["GET"])
+@jwt_required()
+def me():
+    user_id = get_jwt_identity()
+    print(user_id)
+    user = User.query.get(user_id)
+
+    if user:
+        return jsonify({
+            "name": user.name
+        }), 200

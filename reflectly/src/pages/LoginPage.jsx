@@ -15,14 +15,20 @@ function LoginForm({ setFlashMessage, setCategory }) {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://127.0.0.1:5000/auth/login", {
-        username: username,
-        password: password,
-      });
+      const response = await axios.post(
+        "/api/auth/login",
+        {
+          username: username,
+          password: password,
+        },
+        { withCredentials: true },
+      );
       setTimeout(() => {
         setFlashMessage(response.data.message);
         setCategory(response.data.category);
       }, 0);
+
+      navigate("/homedashboard");
     } catch (error) {
       setTimeout(() => {
         setFlashMessage(error.response?.data?.message);

@@ -278,6 +278,21 @@ h1 {
   cursor: pointer;
 }
 
+@keyframes shrinkAndGrow {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(5);
+    opacity: 0;
+  }
+}
+
 .circle {
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 50%;
@@ -285,44 +300,90 @@ h1 {
   align-items: center;
   justify-content: center;
   position: absolute;
+  animation: shrinkAndGrow 5s ease-in-out infinite;
+  box-sizing: border-box;
+  transform-origin: center;
 }
 
 .circle-6 {
   width: 75px;
   height: 75px;
+  animation-delay: 1s;
 }
 
 .circle-5 {
-  width: 150px;
-  height: 150px;
+  width: 75px;
+  height: 75px;
+  animation-delay: 2s;
 }
 
 .circle-4 {
-  width: 225px;
-  height: 225px;
+  width: 75px;
+  height: 75px;
+  animation-delay: 3s;
 }
 
 .circle-3 {
-  width: 300px;
-  height: 300px;
+  width: 75px;
+  height: 75px;
+  animation-delay: 4s;
 }
 
 .circle-2 {
-  width: 375px;
-  height: 375px;
+  width: 75px;
+  height: 75px;
+  animation-delay: 5s;
 }
 
 .circle-1 {
-  width: 450px;
-  height: 450px;
+  width: 75px;
+  height: 75px;
+  animation-delay: 6s;
 }
 
-.circle-7 {
-  width: 525px;
-  height: 525px;
+/*Home Dashboard*/
+.menu-icon {
+  height: var(--button-height);
+  width: var(--button-height);
+  border-radius: 50%;
+  font-size: var(--text-base);
+  background-color: rgb(227, 227, 227);
+  border: none;
+  color: black;
 }
 
-.circle-8 {
-  width: 600px;
-  height: 600px;
+.menu-icon:hover {
+  cursor: pointer;
+}
+
+nav {
+  padding: var(--space-3);
+  width: 200px;
+  border-radius: var(--subtle-round-border);
+  margin-top: var(--space-2);
+  margin-left: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  background-color: var(--color-background);
+  border: 1px solid grey;
+  display: none;
+}
+
+.nav-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.menu {
+  width: fit-content;
+}
+.menu:hover nav {
+  display: block;
+}
+
+.home-dashboard-page {
+  padding: clamp(1rem, calc(0.636rem + 1.818vw), 2rem);
 }
