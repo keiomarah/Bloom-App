@@ -13,12 +13,12 @@ journal = Blueprint("journal", __name__)
 @journal.route("/entry", methods=["POST"])
 @jwt_required()
 def create_entry():
-    data = request.json()
+    data = request.json
 
     if data:
         mood = data.get("mood")
         user_id = current_user.id
-        sub_mood = data.get("sub-mood")
+        sub_mood = data.get("sub-mood") 
         prompt = data.get("prompt")
         created_at = datetime.now(UTC)
         updated_at = datetime.now(UTC)

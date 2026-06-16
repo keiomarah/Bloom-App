@@ -5,7 +5,7 @@ from flask_jwt_extended import current_user
 def create_new_entry(mood, sub_mood, prompt, created_at, user_id, updated_at, text):
     new_entry = JournalEntry(mood=mood, sub_mood=sub_mood, user_id=user_id, prompt=prompt, created_at=created_at, updated_at=updated_at, text=text)
     db.session.add(new_entry)
-    db.commit()
+    db.session.commit()
     return jsonify({
         "message":"Entry added successfully"
     }), 200
@@ -20,7 +20,7 @@ def get_entries():
             "text": entry.text,
             "created-at": entry.created_at
         }
-        for entry in current_user.tasks
+        for entry in current_user.entries
     ]), 200
 
 def get_entry(id): 

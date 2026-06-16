@@ -7,5 +7,6 @@ class JournalEntry(db.Model):
     mood = db.Column(db.String(150))
     sub_mood = db.Column(db.String(150))
     prompt = db.Column(db.String(500))
+    text = db.Column(db.String(5000))
     created_at = db.Column(db.DateTime, default=func.now())
     updated_at = db.Column(db.DateTime)
