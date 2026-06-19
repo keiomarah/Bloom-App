@@ -3,7 +3,7 @@
   --color-accent: #000000;
 
   --color-text-primary: #000000;
-  --color-text-secondary: #828282;
+  --color-text-secondary: #646464;
 
   --color-border: #828282;
 
@@ -88,6 +88,22 @@
   }
   100% {
     background-position: 83% 0%;
+  }
+}
+
+@keyframes PopUp {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  75% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 *,
@@ -259,6 +275,14 @@ h1 {
   .login-page {
     padding: 2rem 10vw;
   }
+
+  textarea {
+    width: 75vw;
+  }
+
+  .journal-entry-container {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 .flashed-message {
@@ -329,7 +353,7 @@ h1 {
   align-items: center;
   justify-content: center;
   position: absolute;
-  animation: shrinkAndGrow 5s ease-in-out infinite;
+  animation: shrinkAndGrow 5s ease-in-out infinite backwards;
   box-sizing: border-box;
   transform-origin: center;
 }
@@ -523,17 +547,24 @@ dialog {
   border: none;
   max-width: 100vw;
   max-height: 100vh;
-  padding: clamp(1rem, calc(0.636rem + 1.818vw), 2rem);
+  padding: clamp(2rem, calc(1.273rem + 3.636vw), 4rem);
   margin: 0;
   overflow: hidden;
 }
 
 .close-dialog-btn {
   float: right;
+  margin-right: 15px;
 }
 
 .main-mood-page {
   background-color: var(--color-background);
+  height: 95%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .main-mood-page h1 {
@@ -552,6 +583,12 @@ dialog {
   height: 95%;
 }
 
+.return-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: clamp(2rem, calc(1.273rem + 3.636vw), 4rem);
+}
 .submood-container {
   display: flex;
   flex-wrap: wrap;
@@ -561,61 +598,129 @@ dialog {
 }
 .main-mood-btn-container {
   position: relative;
-  margin: 4rem auto;
   width: clamp(10rem, calc(4.545rem + 27.273vw), 25rem);
   aspect-ratio: 1/1;
 }
 
-.mood-btn {
+.mood-btn-wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
+}
+
+.mood-btn {
+  height: var(--button-height);
+  background: var(--button-primary-background);
+  color: var(--button-primary-text);
+  padding: 0 var(--button-padding-width);
+  width: fit-content;
+  border-radius: var(--extra-round-border);
   font-size: var(--text-base);
+  margin: var(--space-3) 0;
+  border: 1px solid var(--color-accent);
+  animation: PopUp 0.5s ease-in-out 1 backwards;
+  transition: 0.3s transform ease-in-out;
+}
+
+.mood-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-background);
+  cursor: pointer;
+  transform: translateY(-15px);
 }
 
 #btn-Happy,
 .background-Happy {
   background-color: var(--color-happy);
   color: var(--color-happy-dark);
+  animation-delay: 0s;
+  scrollbar-color: var(--color-happy-dark) var(--color-happy);
 }
 
 #btn-Afraid,
 .background-Afraid {
   background-color: var(--color-afraid);
   color: var(--color-happy-afraid);
+  animation-delay: 0.8s;
+  scrollbar-color: var(--color-afraid-dark) var(--color-afraid);
 }
 
 #btn-Angry,
 .background-Angry {
   background-color: var(--color-angry);
   color: var(--color-happy-angry);
+  animation-delay: 1s;
+  scrollbar-color: var(--color-angry-dark) var(--color-angry);
 }
 
 #btn-Disgust,
 .background-Disgust {
   background-color: var(--color-disgust);
   color: var(--color-disgust-dark);
+  animation-delay: 1.2s;
+  scrollbar-color: var(--color-disgust-dark) var(--color-disgust);
 }
 
 #btn-Bad,
 .background-Bad {
   background-color: var(--color-bad);
   color: var(--color-bad-dark);
+  animation-delay: 0.6s;
+  scrollbar-color: var(--color-bad-dark) var(--color-bad);
 }
 
 #btn-Surprise,
 .background-Surprise {
   background-color: var(--color-surprise);
   color: var(--color-surprise-dark);
+  animation-delay: 0.2s;
+  scrollbar-color: var(--color-surprise-dark) var(--color-surprise);
 }
 
+#btn-Sad,
+.background-Sad {
+  background-color: var(--color-sad);
+  color: var(--color-sad-dark);
+  animation-delay: 0.4s;
+  scrollbar-color: var(--color-sad-dark) var(--color-sad);
+}
+
+@media screen and (max-width: 768px) {
+  .mood-btn-wrapper {
+    transform: none !important;
+    position: unset !important;
+    margin: 0;
+  }
+
+  .main-mood-btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    width: 250px;
+    justify-content: center;
+  }
+
+  .journal-header {
+    width: 80vw;
+  }
+}
+
+/*journal page*/
 .journal-page {
   width: 100%;
   height: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   text-align: left;
+  gap: var(--space-2);
+}
+
+.journal-header {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
   gap: var(--space-2);
 }
 
@@ -625,7 +730,7 @@ dialog {
 
 .journal-page textarea {
   width: 40vw;
-  height: 35vw;
+  max-height: 60vh;
   background-color: transparent;
   border: none;
   font-family: "Inter", sans-serif;
@@ -657,7 +762,13 @@ dialog {
   padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.journal-entry-date {
+  color: rgb(51, 51, 51);
+  font-size: var(--text-xs);
 }
 
 .journal-entry:hover {
@@ -669,18 +780,76 @@ dialog {
   transition: var(--main-transition);
   width: fit-content;
   padding: 0;
-  bottom: var;
+  margin-top: var(--space-4);
 }
 
 .journal-entry-wrapper {
   position: relative;
+  height: 350px;
 }
 
 .journal-entry-wrapper:hover .delete-button {
   display: block;
-  position: absolute;
 }
 
 .delete-button:hover {
   color: red;
+}
+
+/*Accounts Page*/
+.account-page {
+  background-color: beige;
+  padding: clamp(1rem, calc(0.636rem + 1.818vw), 2rem);
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.account-details {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.account-details form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+fieldset {
+  display: flex;
+  gap: var(--space-7);
+  border: none;
+}
+
+legend {
+  font-weight: 600;
+}
+
+fieldset label {
+  color: var(--color-text-secondary);
+}
+
+fieldset input {
+  width: 15rem;
+  border-radius: var(--extra-round-border);
+}
+
+.form-icon {
+  margin-right: var(--space-2);
+  display: inline-block;
+}
+
+.delete-account-btn {
+  color: var(--color-error-text);
+}
+
+.delete-account-btn:hover {
+  cursor: pointer;
 }

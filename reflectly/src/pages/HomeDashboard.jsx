@@ -54,7 +54,13 @@ function DailyMoodButton({ setShowMoodForm }) {
 }
 
 function JournalEntries({ entries, setShowMoodForm, setEntry, setEntries }) {
-  async function deleteEntry(e, entry) {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+  async function deleteEntry(entry) {
     try {
       const response = await axios.delete(`/api/journal/entry/${entry.id}`, {
         withCredentials: true,
@@ -82,11 +88,15 @@ function JournalEntries({ entries, setShowMoodForm, setEntry, setEntries }) {
                 key={entry.id}
                 className={`journal-entry background-${entry.mood}`}
                 onClick={(e) => {
-                  setEntry(e, entry);
+                  setEntry(entry);
                   setShowMoodForm(true);
                 }}
               >
-                {entry.text.substring(0, 25)}
+                <h2>{entry.submood}</h2>
+                <p className="journal-entry-date">
+                  {formatter.format(new Date(entry["updated-at"]))}
+                </p>
+                {entry.text.substring(0, 255)}
               </div>
               <button
                 className="control-btn delete-button"
@@ -143,7 +153,7 @@ export function HomeDashboard() {
         setEntries={setEntries}
       />
       <MenuIcon />
-      <AddButton />
+      <AddButton setShowMoodForm={setShowMoodForm} />
       <div className="welcome-header">
         <img src={logo} className="home-logo" />
         <h1>Hi, {name}.</h1>

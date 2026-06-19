@@ -19,7 +19,8 @@ def get_entries():
             "submood": entry.sub_mood,
             "prompt": entry.prompt,
             "text": entry.text,
-            "created-at": entry.created_at
+            "created-at": entry.created_at.isoformat(),
+            "updated-at": entry.updated_at.isoformat()
         }
         for entry in current_user.entries
     ]), 200

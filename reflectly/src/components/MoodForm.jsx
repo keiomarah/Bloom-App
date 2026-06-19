@@ -1,6 +1,10 @@
 import { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faXmark,
+  faCheck,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { text } from "@fortawesome/fontawesome-svg-core";
 
@@ -17,6 +21,7 @@ const MOODS = {
     "Hope",
   ],
   Surprise: ["Shock", "Confusion", "Amazement", "Excitement"],
+  Sad: ["Lonely", "Vulnerable", "Despair", "Guilty", "Depression", "Hurt"],
   Bad: ["Boredom", "Busy", "Stressed", "Tired"],
   Afraid: ["Scared", "Anxious", "Insecure", "Weak", "Shaky", "Nervous"],
   Angry: [
@@ -41,22 +46,26 @@ function MainMood({ setStep, setMainMood }) {
     <div className="main-mood-page">
       <div className="main-mood-btn-container">
         {Object.keys(MOODS).map((mainEmotion, index) => (
-          <button
+          <div
             key={mainEmotion}
-            id={`btn-${mainEmotion}`}
-            className="mood-btn btn-primary"
-            onClick={handleSelect}
+            className="mood-btn-wrapper"
             style={{
               transform: `
         translate(-50%, -50%)
-          rotate(${index * (360 / Object.keys(MOODS).length)}deg)
-          translateY(-120px)
-          rotate(${-index * (360 / Object.keys(MOODS).length)}deg)
+          rotate(${(index - 3) * (360 / 8)}deg)
+          translateY(-10rem)
+          rotate(${-(index - 3) * (360 / 8)}deg)
       `,
             }}
           >
-            {mainEmotion}
-          </button>
+            <button
+              className="mood-btn"
+              id={`btn-${mainEmotion}`}
+              onClick={handleSelect}
+            >
+              {mainEmotion}
+            </button>
+          </div>
         ))}
       </div>
       <h1>How are you feeling today?</h1>
@@ -64,17 +73,32 @@ function MainMood({ setStep, setMainMood }) {
   );
 }
 
-function SubMood({ mainMood, setSubMood, setStep }) {
+function SubMood({ mainMood, setSubMood, setStep, entry }) {
+  let mainMoodRef;
+
+  if (mainMood) {
+    mainMoodRef = mainMood;
+  } else {
+    mainMoodRef = entry?.mood;
+  }
   function handleSelect(e) {
     setSubMood(e.currentTarget.textContent);
     setStep("journal");
   }
   return (
     <div className={`submood-page`}>
-      <h1>{mainMood}?</h1>
+      <button
+        className="control-btn return-btn"
+        onClick={() => {
+          setStep("main");
+        }}
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </button>
+      <h1>{mainMoodRef}?</h1>
       <div className="submood-container">
-        {mainMood &&
-          MOODS[mainMood].map((submood) => (
+        {mainMoodRef &&
+          MOODS[mainMoodRef].map((submood) => (
             <button
               key={submood}
               className="btn-primary"
@@ -88,26 +112,58 @@ function SubMood({ mainMood, setSubMood, setStep }) {
   );
 }
 
-function JournalEntry({ mainMood, subMood, setDraft, submitEntry, entry }) {
+function JournalEntry({
+  mainMood,
+  subMood,
+  setDraft,
+  submitEntry,
+  entry,
+  setStep,
+}) {
   const textareaRef = useRef(null);
+  const today = new Date();
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
   useEffect(() => {
     const text = textareaRef.current;
     if (entry) {
       text.value = entry.text;
     }
+
+    setDraft(text.value);
   }, []);
 
   function updateDraft(e) {
+    const text = textareaRef.current;
+
+    text.style.height = "auto";
+    text.style.height = `${text.scrollHeight}px`;
     setDraft(e.target.value);
   }
   return (
     <div className={`journal-page background-${mainMood || entry?.mood}`}>
-      <h1>{subMood || entry?.submood}?</h1>
-      <textarea
-        ref={textareaRef}
-        placeholder="I am feeling..."
-        onChange={updateDraft}
-      ></textarea>
+      <button
+        className="control-btn return-btn"
+        onClick={() => {
+          setStep("sub");
+        }}
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </button>
+      <div className="journal-header">
+        <h1>{subMood || entry?.submood}?</h1>
+        <p>{formatter.format(today)}</p>
+        <textarea
+          ref={textareaRef}
+          placeholder="I am feeling..."
+          onChange={updateDraft}
+        ></textarea>
+      </div>
+
       <button className="menu-icon" onClick={submitEntry}>
         <FontAwesomeIcon icon={faCheck} />
       </button>
@@ -149,12 +205,11 @@ export function MoodForm({
   async function submitEntry() {
     try {
       if (entry) {
-        console.log(entry.submood);
         const response = await axios.put(
           `/api/journal/entry/${entry.id}`,
           {
-            mood: entry.mood,
-            "sub-mood": entry.submood,
+            mood: mainMood || entry.mood,
+            "sub-mood": subMood || entry.submood,
             prompt: "None",
             text: draft,
           },
@@ -192,7 +247,10 @@ export function MoodForm({
   }
 
   return (
-    <dialog ref={dialogRef} className={`background-${mainMood || entry?.mood}`}>
+    <dialog
+      ref={dialogRef}
+      className={`background-${step === "main" ? "" : mainMood || entry?.mood}`}
+    >
       <button
         className="close-dialog-btn control-btn"
         onClick={() => {
@@ -209,6 +267,7 @@ export function MoodForm({
           mainMood={mainMood}
           setSubMood={setSubMood}
           setStep={setStep}
+          entry={entry}
         />
       )}
 
@@ -219,6 +278,7 @@ export function MoodForm({
           setDraft={setDraft}
           submitEntry={submitEntry}
           entry={entry}
+          setStep={setStep}
         />
       )}
     </dialog>

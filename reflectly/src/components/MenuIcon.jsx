@@ -8,10 +8,14 @@ export function MenuIcon() {
       <nav className="nav-links">
         <ul>
           <li>
-            <Link className="link-nav">Home</Link>
+            <Link className="link-nav" to="/homedashboard">
+              Home
+            </Link>
           </li>
           <li>
-            <Link className="link-nav">Account</Link>
+            <Link className="link-nav" to="/account">
+              Account
+            </Link>
           </li>
         </ul>
       </nav>

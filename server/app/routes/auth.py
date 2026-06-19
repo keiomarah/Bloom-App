@@ -60,5 +60,7 @@ def me():
 
     if user:
         return jsonify({
-            "name": user.name
+            "name": user.name,
+            "surname": user.surname,
+            "email": user.email,
         }), 200
