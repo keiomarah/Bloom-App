@@ -17,6 +17,11 @@ export function MenuIcon() {
               Account
             </Link>
           </li>
+          <li>
+            <Link className="link-nav" to="/">
+              Log out
+            </Link>
+          </li>
         </ul>
       </nav>
     </div>

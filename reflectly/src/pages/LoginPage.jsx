@@ -4,6 +4,7 @@ import logo from "../assets/reflectly-logo.png";
 import axios from "axios";
 import { FlashMessage } from "../components/FlashMessage";
 import { AuthLayout } from "../components/AuthLayout";
+import toast from "react-hot-toast";
 
 function LoginForm({ setFlashMessage, setCategory }) {
   const [username, setUsername] = useState("");
@@ -23,19 +24,12 @@ function LoginForm({ setFlashMessage, setCategory }) {
         },
         { withCredentials: true },
       );
-      setTimeout(() => {
-        setFlashMessage(response.data.message);
-        setCategory(response.data.category);
-      }, 0);
+
+      toast.success(response.data.message);
 
       navigate("/homedashboard");
     } catch (error) {
-      setTimeout(() => {
-        setFlashMessage(error.response?.data?.message);
-        setCategory(error?.response?.data?.category);
-      }, 0);
-
-      console.log(error?.response?.data?.category);
+      toast.error(error.response.data.message);
     }
   };
   return (
@@ -45,7 +39,7 @@ function LoginForm({ setFlashMessage, setCategory }) {
       <p className="secondary-text">
         Enter your credentials to access your account.
       </p>
-      <form onSubmit={handleSubmit}>
+      <form noValidate onSubmit={handleSubmit}>
         <label>Username</label>
         <input
           className={errors.username ? "invalid-input" : ""}

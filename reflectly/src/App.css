@@ -24,9 +24,9 @@
   --color-angry-dark: #690000;
 
   --color-success: rgb(196, 255, 180);
-  --color-error: rgb(255, 180, 180);
+  --color-error: #ffb4b4;
   --color-success-text: rgb(18, 65, 6);
-  --color-error-text: rgb(105, 5, 5);
+  --color-error-text: #690505;
   --color-invalid-input: rgb(192, 0, 0);
 
   --text-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.875rem);
@@ -361,37 +361,37 @@ h1 {
 .circle-6 {
   width: 75px;
   height: 75px;
-  animation-delay: 1s;
+  animation-delay: 0s;
 }
 
 .circle-5 {
   width: 75px;
   height: 75px;
-  animation-delay: 2s;
+  animation-delay: 1s;
 }
 
 .circle-4 {
   width: 75px;
   height: 75px;
-  animation-delay: 3s;
+  animation-delay: 2s;
 }
 
 .circle-3 {
   width: 75px;
   height: 75px;
-  animation-delay: 4s;
+  animation-delay: 3s;
 }
 
 .circle-2 {
   width: 75px;
   height: 75px;
-  animation-delay: 5s;
+  animation-delay: 4s;
 }
 
 .circle-1 {
   width: 75px;
   height: 75px;
-  animation-delay: 6s;
+  animation-delay: 5s;
 }
 
 /*Home Dashboard*/

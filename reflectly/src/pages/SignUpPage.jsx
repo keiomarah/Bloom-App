@@ -5,6 +5,7 @@ import logo from "../assets/reflectly-logo.png";
 import axios from "axios";
 import { FlashMessage } from "../components/FlashMessage";
 import { AuthLayout } from "../components/AuthLayout";
+import toast from "react-hot-toast";
 
 function SignUpForm({ setFlashMessage, setCategory }) {
   const [name, setName] = useState("");
@@ -28,17 +29,12 @@ function SignUpForm({ setFlashMessage, setCategory }) {
         password1: password1,
         password2: password2,
       });
-      setTimeout(() => {
-        setFlashMessage(response.data.message);
-        setCategory(response.data.category);
-      }, 0);
-    } catch (error) {
-      setTimeout(() => {
-        setFlashMessage(error.response?.data?.message);
-        setCategory(error?.response?.data?.category);
-      }, 0);
 
-      console.log(error?.response?.data?.category);
+      toast.success(response.data.message);
+
+      navigate("/homedashboard");
+    } catch (error) {
+      toast.error(error.response?.data?.message);
     }
   };
 
@@ -49,7 +45,7 @@ function SignUpForm({ setFlashMessage, setCategory }) {
       <p className="secondary-text">
         Enter your credentials to create your account.
       </p>
-      <form onSubmit={handleSubmit}>
+      <form noValidate onSubmit={handleSubmit}>
         <label>Name</label>
         <input
           className={errors.name ? "invalid-input" : ""}

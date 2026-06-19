@@ -35,7 +35,7 @@ function AccountDetails() {
   }, []);
   return (
     <div className="account-details">
-      <form>
+      <form noValidate>
         <h1>Account</h1>
         <fieldset>
           <legend>Full Name</legend>

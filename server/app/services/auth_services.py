@@ -39,9 +39,9 @@ def register_user(name, surname, email, username, password):
     new_user = User(name=name, surname=surname, email=email, username=username, password=create_hash(password))
     db.session.add(new_user)
     db.session.commit()
-    access_token = create_access_token(identity=new_user.id)
+    access_token = create_access_token(identity=new_user)
     response = jsonify({
-        "message":"New user created",
+        "message":"Welcome! New account created",
         "category":"success"
     })
     set_access_cookies(response, access_token)
