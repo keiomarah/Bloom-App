@@ -15,7 +15,7 @@ def create_app():
     app.config.from_object(Config)
     db.init_app(app)
     jwt.init_app(app)
-    cors = CORS(app, origins=["http://localhost:5173", "http://127.0.0.1:5173"], supports_credentials=True)
+    cors = CORS(app, origins=["http://localhost:5173", "http://127.0.0.1:5173", "https://your-app.netlify.app"], supports_credentials=True)
 
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(journal, url_prefix="/journal")
