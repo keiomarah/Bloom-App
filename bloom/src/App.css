@@ -642,7 +642,7 @@ dialog {
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-2);
-  margin: 0 clamp(2rem, calc(-10rem + 60vw), 35rem);
+  margin: 10rem;
 }
 .main-mood-btn-container {
   position: relative;
