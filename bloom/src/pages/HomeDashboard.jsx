@@ -68,7 +68,7 @@ function JournalEntries({ entries, setShowMoodForm, setEntry, setEntries }) {
   async function deleteEntry(entry) {
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/api/journal/entry/${entry.id}`,
+        `${import.meta.env.VITE_API_URL}/journal/entry/${entry.id}`,
         {
           withCredentials: true,
         },
@@ -78,7 +78,7 @@ function JournalEntries({ entries, setShowMoodForm, setEntry, setEntries }) {
 
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/journal/entries`,
+          `${import.meta.env.VITE_API_URL}/journal/entries`,
           {
             withCredentials: true,
           },
@@ -136,7 +136,7 @@ export function HomeDashboard() {
     async function getName() {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/auth/me`,
+          `${import.meta.env.VITE_API_URL}/auth/me`,
           {
             withCredentials: true,
           },
@@ -157,7 +157,7 @@ export function HomeDashboard() {
     async function getEntries() {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/journal/entries`,
+          `${import.meta.env.VITE_API_URL}/journal/entries`,
           {
             withCredentials: true,
           },
