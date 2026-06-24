@@ -1,7 +1,6 @@
 [build]
-  base = "frontend"        # path to your React app folder
   command = "npm run build"
-  publish = "dist"         # Vite outputs to dist, not build
+  publish = "dist"
 
 [[redirects]]
   from = "/*"
