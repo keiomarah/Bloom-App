@@ -101,7 +101,7 @@ function AccountDetails() {
     const currentPassword = currentPasswordRef.current;
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/auth/me`,
+        `${import.meta.env.VITE_API_URL}/auth/me`,
         {
           withCredentials: true,
         },
@@ -137,7 +137,7 @@ function AccountDetails() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/auth/update-user`,
+        `${import.meta.env.VITE_API_URL}/auth/update-user`,
         {
           name,
           surname,

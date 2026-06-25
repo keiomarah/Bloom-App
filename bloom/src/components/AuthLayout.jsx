@@ -10,7 +10,10 @@ export function AuthLayout({ children }) {
           <div className="left-panel">{children}</div>
           <div className="right-panel">
             <div className="login-headline">
-              <h2>Get a feel for what's going on.</h2>
+              <h2>
+                Get a feel for what's
+                <br /> going on.
+              </h2>
               <p>
                 A safe space to reflect on how you are feeling without
                 judgement.
